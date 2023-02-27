@@ -12,14 +12,12 @@ function App() {
     "2",
     "3",
     "4",
-
     "1",
     "2",
     "3",
     "4",
-  ]);
-  const [exampleData1, setExampleData1] = useState<string[]>([
     "1",
+    "2",
     "3",
     "4",
     "1",
@@ -205,7 +203,24 @@ function App() {
             setStart(!start);
           } else if (start) {
             resultNum.current += 1;
-            setExampleData(["1", "2", "3", "4", "1", "2", "3", "4"]);
+            setExampleData([
+              "1",
+              "2",
+              "3",
+              "4",
+              "1",
+              "2",
+              "3",
+              "4",
+              "1",
+              "2",
+              "3",
+              "4",
+              "1",
+              "2",
+              "3",
+              "4",
+            ]);
           }
           setClick(!click);
           setStart(!start);
