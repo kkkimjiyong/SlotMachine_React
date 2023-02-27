@@ -8,6 +8,7 @@ function App() {
   // const exampleData = ["1", "2", "3", "4", "5", "1", "2", "3", "4", "5"];
 
   const [exampleData, setExampleData] = useState<string[]>([
+    "0",
     "1",
     "2",
     "3",
@@ -17,6 +18,8 @@ function App() {
     "3",
     "4",
     "1",
+    "0",
+    "0",
     "2",
     "3",
     "4",
@@ -26,7 +29,7 @@ function App() {
     "4",
   ]);
 
-  const randomData = ["1", "2", "3", "4"];
+  const randomData = ["0", "1", "2", "3", "4"];
 
   const [data1, setData1] = useState<any>();
   const [data2, setData2] = useState<any>();
@@ -210,10 +213,13 @@ function App() {
               "4",
               "1",
               "2",
+              "0",
+
               "3",
               "4",
               "1",
               "2",
+              "0",
               "3",
               "4",
               "1",
