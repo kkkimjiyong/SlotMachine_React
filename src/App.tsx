@@ -12,27 +12,23 @@ function App() {
     "2",
     "3",
     "4",
-    "5",
+
     "1",
     "2",
     "3",
     "4",
-    "5",
   ]);
   const [exampleData1, setExampleData1] = useState<string[]>([
     "1",
-
     "3",
     "4",
-    "5",
     "1",
     "2",
     "3",
     "4",
-    "5",
   ]);
 
-  const randomData = ["1", "2", "3", "4", "5"];
+  const randomData = ["1", "2", "3", "4"];
 
   const [data1, setData1] = useState<any>();
   const [data2, setData2] = useState<any>();
@@ -41,26 +37,30 @@ function App() {
   let randomIndex = 1;
   const RandomPick = (number: number) => {
     randomIndex = Math.floor(Math.random() * randomData.length);
-    switch (number) {
-      case 1:
-        return randomIndex;
-        break;
-      case 2:
-        if (0 < randomIndex && randomIndex <= 5) {
-          return randomIndex - 1;
-        } else {
-          return randomIndex + 1;
-        }
-        break;
-      case 3:
-        if (randomIndex > 1) {
-          return randomIndex - 1;
-        } else {
+    if (randomIndex === 5) {
+      randomIndex -= 1;
+    } else {
+      switch (number) {
+        case 1:
           return randomIndex;
-        }
-        break;
-      default:
-        break;
+          break;
+        case 2:
+          if (0 < randomIndex && randomIndex <= 4) {
+            return randomIndex - 1;
+          } else {
+            return randomIndex + 1;
+          }
+          break;
+        case 3:
+          if (randomIndex > 1) {
+            return randomIndex - 1;
+          } else {
+            return randomIndex;
+          }
+          break;
+        default:
+          break;
+      }
     }
     //Math.random 메소드는 0~1 사이의 소수점 의사 난수를 반환하므로, 데이터의 길이를 곱해줘야함.
   };
@@ -68,16 +68,19 @@ function App() {
   const RandomPick1 = (data: any[]) => {
     //Math.random 메소드는 0~1 사이의 소수점 의사 난수를 반환하므로, 데이터의 길이를 곱해줘야함.
     const randomIndex = Math.floor(Math.random() * data.length);
+
     return data[randomIndex];
   };
   const RandomPick2 = (data: any[]) => {
     //Math.random 메소드는 0~1 사이의 소수점 의사 난수를 반환하므로, 데이터의 길이를 곱해줘야함.
     const randomIndex = Math.floor(Math.random() * data.length);
+
     return data[randomIndex];
   };
   const RandomPick3 = (data: any[]) => {
     //Math.random 메소드는 0~1 사이의 소수점 의사 난수를 반환하므로, 데이터의 길이를 곱해줘야함.
     const randomIndex = Math.floor(Math.random() * data.length);
+
     return data[randomIndex];
   };
 
@@ -120,7 +123,7 @@ function App() {
           <Shadow />
           <SlotSlide lotate={10} click={click}>
             {exampleData.map((slot: string): any => {
-              if (index.current > 5 && !start && !click) {
+              if (!start && !click) {
                 return (
                   <SlotLi>
                     <SlotImg
@@ -145,7 +148,7 @@ function App() {
         <SlotBox>
           <SlotSlide lotate={10} click={click}>
             {exampleData.map((slot: string): any => {
-              if (index.current > 5 && !start && !click) {
+              if (!start && !click) {
                 return (
                   <SlotLi>
                     <SlotImg
@@ -203,7 +206,7 @@ function App() {
             setStart(!start);
           } else if (start) {
             resultNum.current += 1;
-            setExampleData(["1", "2", "3", "4", "5", "1", "2", "3", "4", "5"]);
+            setExampleData(["1", "2", "3", "4", "1", "2", "3", "4"]);
           }
           setClick(!click);
           setStart(!start);
