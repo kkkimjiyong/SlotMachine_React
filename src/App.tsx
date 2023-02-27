@@ -275,6 +275,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 `;
 
 const SlotWrap = styled.div`
@@ -335,7 +336,7 @@ const SlotSlide = styled.ul<{ lotate: number; click: boolean }>`
   animation: ${({ click }) =>
     click
       ? css`
-          ${TextAni} 1s linear infinite
+          ${TextAni} 1.5s linear infinite
         `
       : css`
           ${smoothAppear} 0.4s linear
