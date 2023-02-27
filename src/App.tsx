@@ -120,7 +120,6 @@ function App() {
       <SlotMachine src={Machine} alt="머신" />
       <SlotWrap>
         <SlotBox className="first">
-          <Shadow />
           <SlotSlide lotate={10} click={click}>
             {exampleData.map((slot: string): any => {
               if (!start && !click) {
@@ -253,6 +252,7 @@ const Title = styled.h1`
 `;
 
 const Container = styled.div`
+  margin-left: 20px;
   width: 100vw;
   height: 100vh;
   min-height: 510px;
@@ -268,6 +268,9 @@ const SlotWrap = styled.div`
   margin-right: -20px;
   width: 500px;
   height: 120px;
+  @media screen and (max-width: 500px) {
+    height: 60px;
+  }
   overflow-y: hidden;
   /* border: 2px solid black; */
   position: relative;
@@ -280,23 +283,9 @@ const SlotMachine = styled.img`
   margin-left: 62px;
   width: 500px;
   position: absolute;
-`;
-
-const Shadow = styled.div`
-  /* position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-  background: rgb(167, 167, 167);
-  background: linear-gradient(
-    0deg,
-    rgba(167, 167, 167, 1) 8%,
-    rgba(255, 255, 255, 0) 31%,
-    rgba(255, 255, 255, 0) 80%,
-    rgba(167, 167, 167, 1) 100%
-  ); */
+  @media screen and (max-width: 500px) {
+    width: 300px;
+  }
 `;
 
 const SlotBox = styled.div`
@@ -312,6 +301,12 @@ const SlotBox = styled.div`
   z-index: 20;
   &.first {
     margin-left: 110px;
+    @media screen and (max-width: 500px) {
+      margin-left: 176px;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    margin-left: -3px;
   }
 `;
 
@@ -351,6 +346,9 @@ const SlotLi = styled.li`
   font-size: 30px;
   /* color: #ffffff; */
   font-weight: bold;
+  @media screen and (max-width: 500px) {
+    width: 50px;
+  }
   &.stop {
     transform: translateY(-1500px);
   }
@@ -358,6 +356,9 @@ const SlotLi = styled.li`
 
 const SlotImg = styled.img`
   width: 70px;
+  @media screen and (max-width: 500px) {
+    width: 35px;
+  }
 `;
 
 const StopBtn = styled.button`
@@ -375,6 +376,11 @@ const StopBtn = styled.button`
     cursor: pointer;
     background-color: red;
     color: white;
+  }
+  @media screen and (max-width: 500px) {
+    width: 200px;
+    height: 50px;
+    margin-left: 25px;
   }
 `;
 
