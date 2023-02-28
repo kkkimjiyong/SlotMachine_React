@@ -214,7 +214,6 @@ function App() {
               "1",
               "2",
               "0",
-
               "3",
               "4",
               "1",
@@ -243,7 +242,7 @@ const TextAni = keyframes`
   transform: translateY(0);
 }
 100% {
-  transform: translateY(-1500px);
+  transform: translateY(-2100px);
 }
 `;
 
@@ -273,7 +272,6 @@ const Title = styled.h1`
 `;
 
 const Container = styled.div`
-  margin-left: 20px;
   width: 100vw;
   height: 100vh;
   min-height: 510px;
