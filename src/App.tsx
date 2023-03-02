@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled, { css, keyframes } from "styled-components";
 import Machine from "../public/assets/machine.png";
+import { AlertModal } from "./AlertModal";
+import { supabase } from "./lib/api";
 
 function App() {
   //일단 랜덤으로 숫자가 나오게 만들어보자.
@@ -85,6 +87,8 @@ function App() {
     return data[randomIndex];
   };
 
+  console.log(process.env.REACT_APP_SUPABASE_KEY);
+
   const RandomResult = (data: any[]) => {
     let result = [];
     const randomIndex = Math.floor(Math.random() * data.length);
@@ -92,6 +96,21 @@ function App() {
       result.push(data[randomIndex]);
     }
     return result;
+  };
+  const addTestImage = async () => {
+    try {
+      await supabase.from("winners").insert([
+        {
+          name,
+          phonenumber: phoneNumber,
+          content,
+        },
+      ]);
+
+      alert("완료");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   //interval 실행유무 상태
@@ -115,9 +134,20 @@ function App() {
     return () => clearInterval(RandomSlot);
   });
   const resultNum = useRef<number>(0);
+
+  // -----------------  당첨자 로직   -----------------------
+
+  const [win, setWin] = useState<boolean>(false);
+
+  //당첨자 개인정보
+  const [name, setName] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+
   return (
     <Container>
-      <Title>Slot Machine</Title>
+      <Title>Get Rich</Title>
+      <div></div>
       <SlotMachine src={Machine} alt="머신" />
       <SlotWrap>
         <SlotBox className="first">
@@ -198,12 +228,12 @@ function App() {
       </SlotWrap>{" "}
       <StopBtn
         onClick={() => {
+          //------------ 당첨로직  ---------------
           if (resultNum.current === 5 && !start) {
             resultNum.current = 0;
-            console.log("인덱스", index.current);
             setExampleData(RandomResult(exampleData));
-            console.log("당첨");
             setStart(!start);
+            setWin(true);
           } else if (start) {
             resultNum.current += 1;
             setExampleData([
@@ -233,6 +263,7 @@ function App() {
       >
         {!click ? "시작" : "멈춰"}
       </StopBtn>
+      <AlertModal win={win} setWin={setWin} />
     </Container>
   );
 }
@@ -269,6 +300,7 @@ const Title = styled.h1`
   font-size: 40px;
   font-weight: 700;
   top: 150px;
+  left: 100px;
 `;
 
 const Container = styled.div`
@@ -280,6 +312,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  margin-left: 10px;
 `;
 
 const SlotWrap = styled.div`
@@ -300,7 +333,7 @@ const SlotWrap = styled.div`
 
 const SlotMachine = styled.img`
   z-index: 10;
-  margin-left: 62px;
+  /* margin-left: 62px; */
   width: 500px;
   position: absolute;
   @media screen and (max-width: 500px) {
@@ -315,14 +348,14 @@ const SlotBox = styled.div`
   align-items: center;
   font-size: 50px;
   font-weight: 700;
-  width: 70px;
   margin-left: 40px;
+  width: 70px;
   height: 2100px;
   z-index: 20;
   &.first {
-    margin-left: 110px;
+    margin-left: 80px;
     @media screen and (max-width: 500px) {
-      margin-left: 176px;
+      margin-left: 144px;
     }
   }
   @media screen and (max-width: 500px) {
@@ -336,7 +369,6 @@ const SlotSlide = styled.ul<{ lotate: number; click: boolean }>`
   height: 1800px;
   width: 100px;
   background-color: transparent;
-
   animation: ${({ click }) =>
     click
       ? css`
@@ -359,7 +391,6 @@ const SlotLi = styled.li`
   width: 70px;
   height: 300px;
   transition: all 1s ease-in-out;
-  transform: translateY(00px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -392,15 +423,16 @@ const StopBtn = styled.button`
   font-size: 20px;
   font-weight: 700;
   border-radius: 10px;
+  margin-right: 20px;
   :hover {
     cursor: pointer;
     background-color: red;
     color: white;
   }
   @media screen and (max-width: 500px) {
-    width: 200px;
+    width: 260px;
     height: 50px;
-    margin-left: 25px;
+    /* margin-left: 25px; */
   }
 `;
 
