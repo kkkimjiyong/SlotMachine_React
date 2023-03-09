@@ -186,7 +186,7 @@ export const Main = () => {
         </SlotBox>
       </SlotContainer>
       <SlotWhiteShadow />
-      <Button
+      {/* <Button
         onClick={() => {
           setClick(!click);
           if (index.current === 15) {
@@ -200,7 +200,7 @@ export const Main = () => {
         }}
       >
         Go
-      </Button>
+      </Button> */}
       {correctModal && (
         <CorrectModal
           setCorrectModal={setCorrectModal}
