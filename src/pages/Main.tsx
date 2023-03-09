@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import styled, { keyframes, css } from "styled-components";
 import SlotMachine from "../../public/assets/machine1.png";
 import BackGround from "../../public/assets/background2.png";
+import { CorrectModal } from "./common/CorrectModal";
+import Prac2 from "./Prac2";
 
 export const Main = () => {
   const [exmapleData, setExampleData] = useState<any>([
@@ -23,11 +25,11 @@ export const Main = () => {
     let randomIndex2 = Math.floor(Math.random() * exmapleData.length);
     setFirstIndex(randomIndex);
     if (0 < randomIndex && randomIndex <= 4) {
-      setSecondIndex(randomIndex - 1);
+      setThirdIndex(randomIndex - 1);
     } else {
-      setSecondIndex(randomIndex + 1);
+      setThirdIndex(randomIndex + 1);
     }
-    setThirdIndex(randomIndex2);
+    setSecondIndex(randomIndex2);
   };
   const SetRandomIndex2 = () => {
     let randomIndex = Math.floor(Math.random() * exmapleData.length);
@@ -46,23 +48,27 @@ export const Main = () => {
 
   useEffect(() => {
     const RandomItem = setInterval(() => {
-      if (index.current === 15) {
-        index.current = 0;
-        // setData(index.current);
-      } else if (index.current < 9) {
-        index.current += 3;
-        SetRandomIndex2();
-      } else {
-        index.current += 3;
-        SetRandomIndex();
+      if (click) {
+        if (index.current === 15) {
+          index.current = 0;
+          // setData(index.current);
+        } else if (index.current < 9) {
+          index.current += 3;
+          SetRandomIndex2();
+        } else {
+          index.current += 3;
+          SetRandomIndex();
+        }
       }
     }, 500);
     return () => clearInterval(RandomItem);
   });
-  console.log(firstIndex, secondIndex, thirdIndex);
 
   //버튼클릭
   const [click, setClick] = useState<boolean>(true);
+
+  // 당첨모달 띄우기
+  const [correctModal, setCorrectModal] = useState<boolean>(false);
 
   return (
     <Container>
@@ -92,28 +98,16 @@ export const Main = () => {
               src={`/assets/slot_${exmapleData[firstIndex]}.png`}
               alt="이미지"
             />
-          </SlotArray>
-        </SlotBox>
-        <SlotBox>
-          <SlotArray click={click}>
             <SlotItemImg
-              src={`/assets/slot_${exmapleData[secondIndex]}.png`}
-              alt="이미지"
-            />
-            <SlotItemImg
-              src={`/assets/slot_${exmapleData[secondIndex]}.png`}
+              src={`/assets/slot_${exmapleData[firstIndex]}.png`}
               alt="이미지"
             />{" "}
             <SlotItemImg
-              src={`/assets/slot_${exmapleData[secondIndex]}.png`}
+              src={`/assets/slot_${exmapleData[firstIndex]}.png`}
               alt="이미지"
             />{" "}
             <SlotItemImg
-              src={`/assets/slot_${exmapleData[secondIndex]}.png`}
-              alt="이미지"
-            />{" "}
-            <SlotItemImg
-              src={`/assets/slot_${exmapleData[secondIndex]}.png`}
+              src={`/assets/slot_${exmapleData[firstIndex]}.png`}
               alt="이미지"
             />
           </SlotArray>
@@ -121,6 +115,42 @@ export const Main = () => {
         <SlotBox>
           <SlotArray click={click}>
             <SlotItemImg
+              src={`/assets/slot_${exmapleData[secondIndex]}.png`}
+              alt="이미지"
+            />
+            <SlotItemImg
+              src={`/assets/slot_${exmapleData[secondIndex]}.png`}
+              alt="이미지"
+            />{" "}
+            <SlotItemImg
+              src={`/assets/slot_${exmapleData[secondIndex]}.png`}
+              alt="이미지"
+            />{" "}
+            <SlotItemImg
+              src={`/assets/slot_${exmapleData[secondIndex]}.png`}
+              alt="이미지"
+            />{" "}
+            <SlotItemImg
+              src={`/assets/slot_${exmapleData[secondIndex]}.png`}
+              alt="이미지"
+            />{" "}
+            <SlotItemImg
+              src={`/assets/slot_${exmapleData[firstIndex]}.png`}
+              alt="이미지"
+            />{" "}
+            <SlotItemImg
+              src={`/assets/slot_${exmapleData[thirdIndex]}.png`}
+              alt="이미지"
+            />{" "}
+            <SlotItemImg
+              src={`/assets/slot_${exmapleData[firstIndex]}.png`}
+              alt="이미지"
+            />
+          </SlotArray>
+        </SlotBox>
+        <SlotBox>
+          <SlotArray click={click}>
+            <SlotItemImg
               src={`/assets/slot_${exmapleData[thirdIndex]}.png`}
               alt="이미지"
             />
@@ -134,6 +164,18 @@ export const Main = () => {
             />{" "}
             <SlotItemImg
               src={`/assets/slot_${exmapleData[thirdIndex]}.png`}
+              alt="이미지"
+            />{" "}
+            <SlotItemImg
+              src={`/assets/slot_${exmapleData[thirdIndex]}.png`}
+              alt="이미지"
+            />{" "}
+            <SlotItemImg
+              src={`/assets/slot_${exmapleData[thirdIndex]}.png`}
+              alt="이미지"
+            />{" "}
+            <SlotItemImg
+              src={`/assets/slot_${exmapleData[secondIndex]}.png`}
               alt="이미지"
             />{" "}
             <SlotItemImg
@@ -147,43 +189,75 @@ export const Main = () => {
       <Button
         onClick={() => {
           setClick(!click);
-          setExampleData([1, 1, 1, 1, 1]);
+          if (index.current === 15) {
+            setTimeout(() => {
+              setCorrectModal(true);
+            }, 1600);
+            setExampleData([1, 1, 1, 1, 1]);
+          } else {
+            setExampleData([0, 1, 2, 3, 4]);
+          }
         }}
       >
-        {/* Gacha! */}
+        Go
       </Button>
+      {correctModal && (
+        <CorrectModal
+          setCorrectModal={setCorrectModal}
+          correctModal={correctModal}
+        />
+      )}
+      <Prac2 />
     </Container>
   );
 };
 
 const RollingAni = keyframes`
 0% {
-  transform: translateY(0);
+  transform: translateY(0px);
 }
 100% {
-  transform: translateY(-600px);
+  transform: translateY(-1500px);
 }
 `;
 
 const smoothAppear = keyframes`
 0% {
-  transform: translateY(100px);
+  transform: translateY(-60px);
 
 }
 25% {
-  transform: translateY(90px);
+  transform: translateY(-80px);
 }
 50% {
-  transform: translateY(100px);
+  transform: translateY(-60px);
 }
 75% {
-  transform: translateY(110px);
+  transform: translateY(-80px);
 }
 100% {
-  transform: translateY(100px);
+  transform: translateY(-70px);
 
 }
 
+`;
+
+const CorrectAni = keyframes`
+  0% {
+  transform: scale(1);
+}
+25% {
+  transform: scale(1.5);
+}
+50% {
+  transform: scale(0.4);
+}
+75% {
+  transform: scale(1.1);
+}
+100% {
+  transform: scale(1);
+}
 `;
 
 const Container = styled.div`
@@ -198,6 +272,7 @@ const Container = styled.div`
 `;
 
 const MachineImg = styled.img`
+  animation: ${CorrectAni} 1s linear;
   position: absolute;
   width: 500px;
   height: 300px;
@@ -221,6 +296,7 @@ const BackGroundFilter = styled.div`
 `;
 
 const SlotContainer = styled.div`
+  animation: ${CorrectAni} 1s linear;
   position: absolute;
   width: 450px;
   height: 250px;
@@ -241,12 +317,15 @@ const SlotWhiteShadow = styled.div`
   justify-content: center;
   z-index: 1;
   box-shadow: 0px 3px 35px 30px white;
+  animation: ${CorrectAni} 1s linear;
 `;
 
 const SlotBox = styled.div`
+  animation: ${CorrectAni} 1s linear;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
+  justify-content: flex-start;
   align-items: center;
   overflow: hidden;
   width: 145px;
@@ -259,14 +338,13 @@ const SlotArray = styled.div<{ click: boolean }>`
   animation: ${({ click }) =>
     click
       ? css`
-          ${RollingAni} 1.5s linear infinite
+          ${RollingAni} 2.5s linear infinite
         `
       : css`
           ${smoothAppear} 0.4s linear
         `};
   width: 94px;
-  transform: translateY(100px);
-  height: 1500px;
+  transform: translateY(-70px);
   flex: none;
   display: flex;
   flex-direction: column;
@@ -288,8 +366,7 @@ const SlotItem = styled.div`
 const SlotItemImg = styled.img`
   width: 80px;
   height: 80px;
-  padding-bottom: 5px;
-  margin-bottom: 200px;
+  margin: 110px 0;
   color: #6a6a6a;
 `;
 
