@@ -2,8 +2,7 @@
 
 - 결과값 조정가능 (클릭 수 or 시간) 
 
-![image](https://user-images.githubusercontent.com/113953473/221527181-fa170126-e7d2-4037-94f2-bfce4086a596.png)
-
+![image](https://user-images.githubusercontent.com/113953473/223921749-0b50680e-57d6-4a03-8f09-d122bf0aad22.png)
 ---
 트러블슈팅
 ---
