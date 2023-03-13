@@ -34,18 +34,27 @@ export const CorrectModal = ({
       <Container win={correctModal}>
         <InputSection>
           <div>이름</div>
-          <input value={name} onChange={(e) => setName(e.target.value)} />
+          <input
+            className="input"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </InputSection>
         <InputSection>
           <div>전화번호</div>
           <input
+            className="input"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </InputSection>
         <InputSection>
           <div>소감</div>
-          <input value={content} onChange={(e) => setContent(e.target.value)} />
+          <input
+            className="input"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
         </InputSection>
 
         <InputSection className="checkbox">
@@ -113,10 +122,20 @@ const InputSection = styled.section`
   display: flex;
   justify-content: space-between;
   width: 80%;
+  font-weight: 700;
   margin-top: 10px;
   &.checkbox {
     margin-top: 20px;
     justify-content: start;
+  }
+  .input {
+    border: none;
+    background-color: #f7e0d0;
+    border-radius: 5px;
+    height: 25px;
+    ::-moz-focus-inner {
+      border: none;
+    }
   }
 `;
 

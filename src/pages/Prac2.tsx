@@ -1,26 +1,23 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
+import dd from "../../public/assets/GoldButton.png";
 
-const Prac2 = ({
-  setFirstIndex,
-}: {
-  setFirstIndex?: React.Dispatch<React.SetStateAction<any>>;
-}) => {
+const Prac2 = ({ click }: { click?: any }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [canvasCtx, setCanvasCtx] = useState<CanvasRenderingContext2D>();
   let dx = 4;
   let dy = 6;
-  let width = 1500;
-  let height = 600;
-  let x = 400;
-  let y = 400;
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+  let x = Math.floor(Math.random() * 500);
+  let y = Math.floor(Math.random() * 500);
   useEffect(() => {
     const canvas: HTMLCanvasElement | null = canvasRef.current;
 
     if (canvas !== null) {
-      canvas.width = 1500;
-      canvas.height = 600;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
 
     const canvasContext: CanvasRenderingContext2D | null =
@@ -29,12 +26,15 @@ const Prac2 = ({
   });
 
   useEffect(() => {
-    console.log(1);
     const createCircle = setInterval(() => {
       move();
     }, 20);
     return () => clearInterval(createCircle);
   });
+
+  useEffect(() => {
+    console.log(x, y);
+  }, [click]);
 
   function move() {
     canvasCtx?.clearRect(0, 0, width, height); // 그림 지우기
@@ -47,21 +47,22 @@ const Prac2 = ({
   }
 
   function circle(x: any, y: any, r: any) {
+    let img = new Image();
+    img.src = dd;
     if (canvasCtx) {
       canvasCtx.beginPath();
-      canvasCtx.arc(x, y, r, 0, 2 * Math.PI, true);
-      canvasCtx.fillStyle = "black";
-      canvasCtx.fill();
+      canvasCtx.drawImage(img, x, y, 100, 100);
     }
   }
 
+  //색깔로 구분
   function showColor(e: any) {
     const x = e.nativeEvent.offsetX;
     const y = e.nativeEvent.offsetY;
     const color = canvasCtx?.getImageData(x, y, 1, 1).data;
     if (color) {
       if (color[3] === 255) {
-        alert("클릭성공!");
+        click();
       }
       console.log(color[3]);
     }
@@ -75,9 +76,9 @@ const Prac2 = ({
 };
 
 const Contatiner = styled.div`
-  position: absolute;
-  width: 1500px;
-  height: 500px;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
   z-index: 3;
   /* background-color: aliceblue; */
 `;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
 import SlotMachine from "../../public/assets/machine1.png";
 import BackGround from "../../public/assets/background2.png";
@@ -207,7 +207,19 @@ export const Main = () => {
           correctModal={correctModal}
         />
       )}
-      <Prac2 />
+      <Prac2
+        click={useCallback(() => {
+          setClick(!click);
+          if (index.current === 15) {
+            setTimeout(() => {
+              setCorrectModal(true);
+            }, 1000);
+            setExampleData([1, 1, 1, 1, 1]);
+          } else {
+            setExampleData([0, 1, 2, 3, 4]);
+          }
+        }, [click])}
+      />
     </Container>
   );
 };
@@ -338,10 +350,10 @@ const SlotArray = styled.div<{ click: boolean }>`
   animation: ${({ click }) =>
     click
       ? css`
-          ${RollingAni} 2.5s linear infinite
+          ${RollingAni} 2s linear infinite
         `
       : css`
-          ${smoothAppear} 0.4s linear
+          ${smoothAppear} 0.8s linear
         `};
   width: 94px;
   transform: translateY(-70px);
